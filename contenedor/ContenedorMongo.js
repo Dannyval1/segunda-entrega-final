@@ -1,26 +1,43 @@
+import mongoose from "mongoose";
+
+await mongoose.connect('mongodb://localhost:27017/segFinal');
 class ContenedorMongo {
-    constructor(model){
-        this.model = model;
+    constructor(modelo){
+        this.modelo = modelo;
     }
 
-    async created(dataModel){
-        const newElement = new this.modelo(dataProducto);
-        await newElement.save();
+    async created(newElement){
+        const createElement = new this.modelo(newElement);
+        await createElement.save();
+        return {
+            ...newElement,
+            id: createElement.id
+        };
     }
 
     async read(){
-        const elements = await this.modelo.find();
-        return elements;
+        const elementos = await this.modelo.find();
+        return elementos;
     }
 
-    async update(findObj, newObj){
+    async update(idElemento, newElement){
         const updateElement = await this.modelo.findOneAndUpdate({
-            findObj,
-            newObj
+            idElemento,
+            newElement
         });
+        return updateElement;
     }
 
-    async delete(deleteObj){
-        const deleteElement = await this.modelo.deleteOne(deleteObj);
+    async delete(idElemento){
+        const deleteElement = await this.modelo.deleteOne(idElemento);
+        return deleteElement;
+    }
+
+    async desconectar(){
+        try {
+            mongoose.disconnect();
+        }catch(error){
+            console.log(error);
+        }
     }
 }

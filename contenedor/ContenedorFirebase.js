@@ -1,34 +1,48 @@
-class ContenedorFirebase {
-    constructor(){}
+const admin = require("firebase-admin");
+const serviceAccount = require("./db/segunda-entrega-final-9246b-firebase-adminsdk-qgir7-029b2dee88.json");
 
-    async created(doc, collectionData){
-        await doc.create(collectionData);
+admin.initializeApp({credential: admin.credential.cert(serviceAccount)});
+
+const db = admin.firestore();
+class ContenedorFirebase {
+    constructor(coleccion){
+        this.coleccion = db.collection(coleccion);
     }
 
-    async read(query){
-        query.get()
+    created(newElement){
+        // await doc.create(collectionData);
+        let doc = this.coleccion.doc();
+        const createElement = doc.create(newElement);
+        return {
+            ...newElement,
+            id: createElement.id
+        };
+    }
+
+    read(){
+        this.coleccion.get()
         .then((snapshot) => {
             snapshot.forEach((doc) => {
                 doc.id,
-                doc.data(); 
+                doc.data();
             });
         })
     }
 
-    async update(query, keyFind, keyValue, newObjData){
-        query
-        .where(keyFind, "==", keyValue)
+    update(idElement, newElement){
+        this.coleccion
+        .where('id', "==", idElement)
         .get()
         .then((snapshot) => {
             snapshot.forEach((doc) => {
-                doc.ref.update(newObjData);
+                doc.ref.update(newElement);
             });
         });
     }
 
-    async delete(query, keyFind, keyValue){
-        query
-        .where(keyFind, "==", keyValue)
+    delete(idElement){
+        this.coleccion
+        .where('id', "==", idElement)
         .get()
         .then((snapshot) => {
             snapshot.forEach((doc) => {
