@@ -1,5 +1,5 @@
 // requires necesarios
-const express = require('express');
+import express from 'express';
 
 const { Router } = express;
 const app = express();

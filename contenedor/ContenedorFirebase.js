@@ -1,9 +1,9 @@
-const admin = require("firebase-admin");
-const serviceAccount = require("./db/segunda-entrega-final-9246b-firebase-adminsdk-qgir7-029b2dee88.json");
+import { initializeApp, credential as _credential, firestore } from "firebase-admin";
+import serviceAccount from "./db/segunda-entrega-final-9246b-firebase-adminsdk-qgir7-029b2dee88.json";
 
-admin.initializeApp({credential: admin.credential.cert(serviceAccount)});
+initializeApp({credential: _credential.cert(serviceAccount)});
 
-const db = admin.firestore();
+const db = firestore();
 class ContenedorFirebase {
     constructor(coleccion){
         this.coleccion = db.collection(coleccion);
