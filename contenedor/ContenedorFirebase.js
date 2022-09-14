@@ -10,7 +10,6 @@ class ContenedorFirebase {
     }
 
     created(newElement){
-        // await doc.create(collectionData);
         let doc = this.coleccion.doc();
         const createElement = doc.create(newElement);
         return {
@@ -51,3 +50,5 @@ class ContenedorFirebase {
         });
     }
 }
+
+export default ContenedorFirebase;

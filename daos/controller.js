@@ -5,8 +5,8 @@ let carritosDao;
 
 switch (varEnvironment) {
     case 'mongo':
-        const daoProductosMongo = import('./productos/ProductosDaoMongo');
-        const daoCarritosMongo = import('./carritos/CarritosDaoMongo');
+        const daoProductosMongo = await import('./productos/ProductosDaoMongo');
+        const daoCarritosMongo = await import('./carritos/CarritosDaoMongo');
 
         productosDao = new daoProductosMongo();
         carritosDao = new daoCarritosMongo();

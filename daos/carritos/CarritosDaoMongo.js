@@ -8,6 +8,11 @@ class CarritosDaoMongo extends ContenedorMongo {
     async guardar(carrito){
         return super.created(carrito);
     }
+
+    async readOne(id){
+        const elemento = await this.modelo.find({'_id': id});
+        return elemento;
+    }
 }
 
 export default CarritosDaoMongo;

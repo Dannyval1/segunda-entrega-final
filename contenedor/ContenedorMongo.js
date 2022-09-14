@@ -41,3 +41,5 @@ class ContenedorMongo {
         }
     }
 }
+
+export default ContenedorMongo;

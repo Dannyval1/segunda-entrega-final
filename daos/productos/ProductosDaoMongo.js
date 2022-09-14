@@ -8,6 +8,11 @@ class ProductosDaoMongo extends ContenedorMongo {
     async guardar(producto){
         return super.created(producto);
     }
+
+    async readOne(id){
+        const elemento = await this.modelo.find({'_id': id});
+        return elemento;
+    }
 }
 
 export default ProductosDaoMongo;
